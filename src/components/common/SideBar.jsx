@@ -86,7 +86,7 @@ const CreateAnimate = {
 };
 
 const Button = styled.button`
-  color: ${props => props.profile ? 'black' : 'red' }
+  color: ${props => props.profile ? '#3a3a3a' : '#caf' }
 `
 
 export default SideBar;

@@ -20,7 +20,7 @@ const Header = () => {
   //   backgroundColor === 'blue' ? setBgView('blue') : setBgView('transparent');
   // };
   return (
-    <HeaderBox>
+    <HeaderBox className='bg-slate-900'>
       <MenuWrap>
         <MenuButton onClick={onClick}>{!spreadNav ? <BiMenu fontSize='30px' color='#3a3a3a' /> : <IoClose fontSize='30px' color='#3a3a3a' />}</MenuButton>
         <SideBar spreadNav={spreadNav} isView={isView} />
@@ -37,7 +37,7 @@ const Header = () => {
 
 const MenuWrap = styled.div`
   width: 77px;
-  background-color: transparent;
+  /* background-color: transparent; */
 `;
 
 const HeaderBox = tw.div`
@@ -45,17 +45,17 @@ const HeaderBox = tw.div`
   flex-row
   justify-between
   items-center
-  w-auto
+  w-full
   h-24
   p-5
+  fixed
 `;
 
 const MenuButton = styled.div`
   cursor: pointer;
-  position: absolute;
   left: 15px;
   top: 20px;
-  /* z-index: 11; */
+  z-index: 11;
 `;
 
 const Logo = tw.div`

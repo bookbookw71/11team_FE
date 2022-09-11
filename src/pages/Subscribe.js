@@ -48,7 +48,7 @@ const Wrapper = styled.div`
 `
 
 const ProfileImg = styled.div`
-  margin: auto;
+  margin: 120px auto 0 auto;
   width: 300px;
   height: 300px;
   border-radius: 100%;
