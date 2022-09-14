@@ -12,7 +12,7 @@ export const checkNickName = (nickname) => {
 };
 
 export const checkPassword = (password) => {
-  const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
+  const passwordRegEx = /^[A-Za-z0-9]{4,20}$/;
 
   let message = "";
 

@@ -5,13 +5,16 @@ import SearchForm from "../components/search/SearchForm";
 import BookTower from "../components/main/BookTower";
 import { useEffect, useState } from "react";
 import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { __getReview } from "../redux/modules/postSlice";
 
 const Main = () => {
-  //bookTower bookList 구분
+  const dispatch = useDispatch();
+
   const [isTowerMode, setTowerMode] = useState(true);
 
   // TODO db에서 가져온 책 목록 저장
-  const [reviews, setReviews] = useState([]);
+  // const [reviews, setReviews] = useState([]);
 
   // TODO My character 설정(option)
   const [myCharacter, setMyCharacter] = useState({});
@@ -19,11 +22,21 @@ const Main = () => {
   // TODO DB에서 가져온 data + character
   const [bookTower, setBookTower] = useState([]);
 
-  //가져온 배열에 캐릭터 추가
+  const { posts: reviews } = useSelector((state) => state.postSlice);
 
   useEffect(() => {
-    setBookTower([...reviews, myCharacter]);
+    dispatch(__getReview());
   }, []);
+
+  //bookTower bookList 구분
+
+  //가져온 배열에 캐릭터 추가
+
+  // useEffect(() => {
+  //   if (reviews.length > 0) {
+  //     setBookTower([...reviews, myCharacter]);
+  //   }
+  // }, []);
 
   return (
     <Layout>

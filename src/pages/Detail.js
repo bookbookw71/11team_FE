@@ -5,7 +5,7 @@ import Layout from "../components/common/Layout";
 
 import harry from "../image/harry.jpg";
 
-const Detail = ({ title, imageUrl, readPeriod, rating, intro }) => {
+const Detail = () => {
   //더미 데이터
   const navigate = useNavigate();
   let testTitle = "해리포터와 마법사의 돌";

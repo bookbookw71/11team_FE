@@ -1,43 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 import Layout from "../components/common/Layout";
+import SearchForm from "../components/search/SearchForm";
 import SearchBook from "../components/search/SearchBook";
+import { useDispatch, useSelector } from "react-redux";
+import { __getBooksThunk } from "../redux/modules/bookSlice";
 
 const Search = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
-  const title = location.state.title;
-  const [searchList, setSearchList] = useState([]);
-  console.log(title);
+  let title = "";
+  /**다이렉트로 search page 접속 시 오류 방지 */
+  title = location.state?.title;
+
+  const { books: searchList } = useSelector((state) => state.bookSlice);
 
   useEffect(() => {
-    //검색 함수 호출해서 받아온 제목으로 검색
-    //검색된 결과 저장
-    // getBooks()
-  }, []);
-
-  // const getBooks = async () => {
-
-  //   const { data } = await bookSearch();
-
-  //   setSearchList()
-  // };
-
-  //검색한 결과 배열에 저장해서 배열을 보여주기
+    try {
+      dispatch(__getBooksThunk(title));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, title]);
 
   return (
     <Layout>
       <SearchContainer>
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        {searchList.map((book) => {
-          return (
-            <SearchBook key={book.id} title={book.title} height={book.height} />
-          );
-        })}
+        <SearchForm />
+        {title === undefined ? (
+          <div>책을 검색해주세요</div>
+        ) : (
+          <>
+            {searchList.map((book) => {
+              return (
+                <SearchBook
+                  key={book.isbn}
+                  author={book.authors[0]}
+                  title={book.title}
+                  content={book.contents}
+                  imageUrl={book.thumbnail}
+                />
+              );
+            })}
+          </>
+        )}
       </SearchContainer>
     </Layout>
   );

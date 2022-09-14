@@ -172,13 +172,7 @@
       "title": "",
       "readStart": "2000 - 01 - 01",
       "readEnd": "2999 - 12 - 31",
-      "star": [
-        true,
-        true,
-        true,
-        true,
-        false
-      ],
+      "star": [true, true, true, true, false],
       "page": 0,
       "id": 32
     },

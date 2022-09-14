@@ -3,10 +3,10 @@ import Main from "../pages/Main";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Post from "../pages/Post";
-import Mypage from '../pages/Mypage'
+import Mypage from "../pages/Mypage";
 import Search from "../pages/Search";
 import Detail from "../pages/Detail";
-// import SearchTest from "../pages/SearchTest";
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -17,7 +17,6 @@ const Router = () => {
         <Route path="/post" element={<Post />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/search" element={<Search />} />
-        {/* <Route path="/searchTest" element={<SearchTest />} /> */}
         <Route path="/detail" element={<Detail />} />
       </Routes>
     </BrowserRouter>

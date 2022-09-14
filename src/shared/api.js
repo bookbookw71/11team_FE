@@ -1,32 +1,34 @@
-import axios from 'axios';
+import axios from "axios";
+
+// let api;
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_URL
+    : "http://localhost:3001";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: BASE_URL,
 });
 
-// export const localAPI = {
-//   getBooks: () => instance.get('/books'),
-// };
+export const userAPI = {
+  emailCheck: (email) => api.get("/api/member/login", email),
 
-// export const localAPI = {
-//   getBooks: () => instance.get("/books"),
-// };
+  nicknameCheck: (nickname) => api.get("/api/member/nickname", nickname),
 
-// export const userAPI = {
-//   emailCheck: (email) => instance.get("/api/member/login", email),
+  register: (email, nickname, password) =>
+    api.post("/api/member/register", { email, nickname, password }),
 
-//   nicknameCheck: (nickname) => instance.get("/api/member/nickname", nickname),
+  login: (email, password) =>
+    api.post("/api/member/login", { email, password }),
+};
 
-//   register: (email, nickname, password) =>
-//     instance.post("/api/member/register", { email, nickname, password }),
-
-//   login: (email, password) =>
-//     instance.post("/api/member/login", { email, password }),
-// };
-
-// // Todo
-// export const bookAPI = {
-//   search: () => instance.get(),
-// };
+// Todo
+export const bookAPI = {
+  searchBooks: (title) =>
+    axios.get(
+      `https://dapi.kakao.com/v3/search/book?target=title&query=${title}&size=20`,
+      { headers: { Authorization: process.env.REACT_APP_KaKaoKEY } }
+    ),
+};
 
 export default api;

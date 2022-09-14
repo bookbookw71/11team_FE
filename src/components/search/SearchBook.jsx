@@ -1,20 +1,25 @@
 import tw from "tailwind-styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBook = ({ title, author, imageUrl, content }) => {
+  const navigate = useNavigate();
+  const goDetail = () => {
+    navigate("/post", { state: { title, imageUrl } });
+  };
+
   return (
-    <Link to="/post">
-      <BookContainer>
-        <BookImage src={imageUrl} alt="BookCover" />
-        <BookContent>
-          <BookTitle>{title}</BookTitle>
-          <BookAuthor>{author}</BookAuthor>
-          <BookIntro>
-            {content.length < 100 ? content : content.slice(0, 80) + "..."}
-          </BookIntro>
-        </BookContent>
-      </BookContainer>
-    </Link>
+    <BookContainer onClick={goDetail}>
+      <BookImage src={imageUrl} alt="BookCover" />
+      <BookContent>
+        <BookTitle>{title}</BookTitle>
+
+        <BookAuthor>{author}</BookAuthor>
+
+        <BookIntro>
+          {content.length < 100 ? content : content.slice(0, 80) + "..."}
+        </BookIntro>
+      </BookContent>
+    </BookContainer>
   );
 };
 
@@ -42,11 +47,11 @@ flex flex-col justify-between p-4 leading-normal
     `;
 
 const BookTitle = tw.h5`
-mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white
+mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white
 `;
 
 const BookAuthor = tw.h5`
-mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white
+mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white
 `;
 
 const BookIntro = tw.p`

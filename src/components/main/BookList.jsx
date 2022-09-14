@@ -6,14 +6,10 @@ const BookList = ({ books }) => {
 
   return (
     <BookListContainer>
+      <BookCard />
       {books.map((book) => {
         return <BookCard book={book} />;
       })}
-
-      <BookCard />
-      <BookCard />
-      <BookCard />
-      <BookCard />
     </BookListContainer>
   );
 };

@@ -22,6 +22,8 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
 
+  const [isError, setError] = useState(false);
+
   const onChangeEmailHandler = (e) => {
     setEmail(e.target.value);
     checkEmail(e.target.value)
@@ -42,6 +44,7 @@ const LoginForm = () => {
     const signInResponse = await dispatch(loginUserThunk(user));
     console.log(signInResponse);
     if (signInResponse.error) {
+      setError(true);
       const errorCode = signInResponse.payload;
       console.log(errorCode);
       setLoginError(errorCode);
@@ -66,7 +69,7 @@ const LoginForm = () => {
             autoComplete="false"
             required
           />
-          <p>{emailError}</p>
+          <ErrorMessage>{emailError}</ErrorMessage>
         </div>
 
         <div>
@@ -78,9 +81,15 @@ const LoginForm = () => {
             autoComplete="false"
             required
           />
-          <p>{passwordError}</p>
+          <ErrorMessage>{passwordError}</ErrorMessage>
         </div>
-        <p>{loginError}</p>
+        {isError ? (
+          <ErrorMessage> {loginError}</ErrorMessage>
+        ) : (
+          <HelpText>
+            비밀번호는 영문 대소문자,숫자를 혼합하여 4-20자로 입력해주세요
+          </HelpText>
+        )}
         <Button type="button">이메일로 로그인</Button>
       </FormContainer>
     </Form>
@@ -119,6 +128,14 @@ duration-100
 px-3
 py-2
 my-4
+`;
+
+const ErrorMessage = tw.p`
+  text-rose-500
+`;
+
+const HelpText = tw.p`
+  text-xs
 `;
 
 export default LoginForm;

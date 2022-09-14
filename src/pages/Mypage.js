@@ -1,27 +1,27 @@
-import { useRef, useState } from 'react';
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
-import { axios } from 'axios';
+import { useRef, useState } from "react";
+import tw from "tailwind-styled-components";
+import styled from "styled-components";
+import { axios } from "axios";
 
-import Header from '../components/common/Header';
-import Layout from '../components/common/Layout';
-import SideBar from '../components/common/SideBar';
-import profile from '../image/profile.jpg';
-import { useDispatch } from 'react-redux';
+import Header from "../components/common/Header";
+import Layout from "../components/common/Layout";
+import SideBar from "../components/common/SideBar";
+import profile from "../image/profile.jpg";
+import { useDispatch } from "react-redux";
 
 const MyPage = () => {
   const dispatch = useDispatch();
-  const [Nickname, setNickName] = useState('췤키라웃');
-  const [Sub, setSub] = useState('구독중');
+  const [Nickname, setNickName] = useState("췤키라웃");
+  const [Sub, setSub] = useState("구독중");
   const [isHover, setIsHover] = useState(false);
   const [profileImg, setProfileImg] = useState(profile);
   const fileInput = useRef(null);
 
-  const handlClick = e => {
+  const handlClick = (e) => {
     fileInput.current.click();
   };
 
-  const changeHandler = e => {
+  const changeHandler = (e) => {
     let formData = new FormData();
     setProfileImg(e.target.files[0]);
   };
@@ -31,18 +31,29 @@ const MyPage = () => {
       <Wrapper>
         <Header />
 
-        <div className='pt-28'>
+        <div className="pt-28">
           {/* NOTE 프로필 이미지  */}
           <ProfileImg>
-            <img id='profile' src={profileImg} onChange={changeHandler} alt='프로필이미지' />
+            <img
+              id="profile"
+              src={profileImg}
+              onChange={changeHandler}
+              alt="프로필이미지"
+            />
           </ProfileImg>
 
           {/* NOTE 프로필 이미지 변경 */}
           <ChangeImgCon>
-            <label htmlFor='change-img' onClick={handlClick}>
+            <label htmlFor="change-img" onClick={handlClick}>
               프로필 변경
             </label>
-            <ChangeImg type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} id='change-img' />
+            <ChangeImg
+              type="file"
+              accept=".jpg,.png,.jpeg"
+              ref={fileInput}
+              onChange={changeHandler}
+              id="change-img"
+            />
             {/* <>{profileImg && <PreviewImage src={URL.createObjectURL(profileImg)} />}</> */}
           </ChangeImgCon>
 

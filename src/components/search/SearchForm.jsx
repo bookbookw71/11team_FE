@@ -9,8 +9,8 @@ const SearchForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    // navigate("/search", { state: { title: title } });
-    navigate("/searchTest", { state: { title: title } });
+    navigate("/search", { state: { title } });
+    // navigate("/searchTest", { state: { title: title } });
   };
 
   const onChangeHandler = (e) => {

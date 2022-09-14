@@ -4,18 +4,25 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../elem/Button";
 import Logo from "../common/Logo";
 import { checkEmail, checkPassword } from "../../utils/validation";
+import { useDispatch } from "react-redux";
+import { checkEmailThunk } from "../../redux/modules/users";
 
 /** 회원가입 폼 */
 const RegisterForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [email, setUserEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [nickName, setNickName] = useState("");
-  const [nickNameError, setNickNameError] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [passwordConfirm, setNewPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [nickNameError, setNickNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [passwordConfirmError, setNewpasswordError] = useState("");
+
+  const [isError, setError] = useState(false);
 
   const passwordDoubleCheck = (password, newPassword) => {
     if (password !== newPassword) {
@@ -49,6 +56,20 @@ const RegisterForm = () => {
 
   const onEmailCheck = () => {
     console.log("이메일 중복확인");
+    if (email === "") {
+      setEmailError("이메일을 입력해주세요!");
+      return;
+    } else {
+      if (checkEmail(email)) {
+        const checkResponse = dispatch(checkEmailThunk(email));
+
+        if (checkResponse) {
+          setEmailError("이미 존재하는 이메일입니다.");
+        } else {
+          setEmailError("사용 가능한 이메일입니다.");
+        }
+      }
+    }
     console.log(email);
     //db로 전송해서, db에 있는지 확인
     //=> return true: db에 존재하므로 사용 불가
@@ -57,6 +78,10 @@ const RegisterForm = () => {
 
   const onNicknameCheck = () => {
     console.log("닉네임 중복확인");
+    if (nickName === "") {
+      setNickNameError("닉네임을 입력해주세요!");
+    }
+
     //db로 전송해서, db에 있는지 확인
     //=> return true: db에 존재하므로 사용 불가
     //=> return false: db에 존재하므로 사용 불가
