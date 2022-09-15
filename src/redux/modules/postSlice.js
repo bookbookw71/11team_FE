@@ -43,10 +43,21 @@ export const __getReview = createAsyncThunk(
       return thunkAPI.rejectWithValue(error);
     }
   }
-});
+);
 
 export const __addReview = createAsyncThunk(
   "post/addReview",
+  async (args, thunkAPI) => {
+    try {
+      const { data } = await api.post("/api/auth/post", args);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __editReview = createAsyncThunk(
+  "post/editReview",
   async (args, thunkAPI) => {
     try {
       const { data } = await api.post("/api/auth/post", args);
@@ -85,20 +96,20 @@ export const postSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    [__editReview.fulfilled]:(state, action) => {
-      const newState = state.posts.map((post)=> {
-        if(post.id === action.payload.data.id) {
-          post= {
+    [__editReview.fulfilled]: (state, action) => {
+      const newState = state.posts.map((post) => {
+        if (post.id === action.payload.data.id) {
+          post = {
             ...post,
             title: action.payload.data.title,
             content: action.payload.data.content,
-            star : action.payload.data.star,
-            page: action.payload.data.page
-          }
+            star: action.payload.data.star,
+            page: action.payload.data.page,
+          };
         }
-      })
+      });
     },
-    [__editReview.rejected]:(state, action) => {
+    [__editReview.rejected]: (state, action) => {
       state.posts = action.payload;
     },
   },
