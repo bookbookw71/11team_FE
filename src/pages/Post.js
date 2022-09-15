@@ -1,41 +1,41 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import useInput from "../hooks/useInput";
-import { useEffect } from "react";
-import tw from "tailwind-styled-components";
-import { useNavigate } from "react-router-dom";
-import { __addReview } from "../redux/modules/postSlice";
-import { __getReview } from "../redux/modules/postSlice";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
+import { useEffect } from 'react';
+import tw from 'tailwind-styled-components';
+import { useNavigate } from 'react-router-dom';
+import { __addReview } from '../redux/modules/postSlice';
+import { __getReview } from '../redux/modules/postSlice';
 
 // 각각 요소 컴포넌트
-import BookImg from "../components/post/BookImg";
-import ReadingPeriod from "../components/post/ReadingPeriod";
-import Star from "../components/post/Star";
-import BookIntro from "../components/post/BookIntro";
-import PublisherPage from "../components/post/PublisherPage";
-import Layout from "../components/common/Layout";
+import BookImg from '../components/post/BookImg';
+import ReadingPeriod from '../components/post/ReadingPeriod';
+import Star from '../components/post/Star';
+import BookIntro from '../components/post/BookIntro';
+import PublisherPage from '../components/post/PublisherPage';
+import Layout from '../components/common/Layout';
 
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const Post = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    // dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+    dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
   }, []);
 
   const location = useLocation();
 
-  let title = "";
+  let title = '';
   title = location.state?.title;
 
-  let imageUrl = "";
+  let imageUrl = '';
   imageUrl = location.state?.imageUrl;
 
   // ANCHOR 이니셜 스테이트
   // const [title, setTitle] = useState("");
-  const [readStart, setReadStart] = useState("2000 - 01 - 01");
-  const [readEnd, setReadEnd] = useState("2999 - 12 - 31");
+  const [readStart, setReadStart] = useState('2000 - 01 - 01');
+  const [readEnd, setReadEnd] = useState('2999 - 12 - 31');
   const [star, setStar] = useState();
   const [intro, setIntro] = useInput();
   const [page, setPage] = useState(0);
@@ -44,9 +44,9 @@ const Post = () => {
 
   const onClick = () => {
     const post = { title, readStart, readEnd, star, page };
-    console.log("🚀 ~ onClick ~ post", post);
+    console.log('🚀 ~ onClick ~ post', post);
     dispatch(__addReview({ title, readStart, readEnd, star, page }));
-    navigate("/main");
+    // navigate('/main');
   };
 
   // const inputTitle = (e) => {
@@ -57,25 +57,20 @@ const Post = () => {
     <Layout>
       <PostWrap>
         <PostCon>
-          <InfoBox className="flex">
+          <InfoBox className='flex'>
             <BookImg imageUrl={imageUrl} />
 
             <BookInfo>
               <PostTitle>{title}</PostTitle>
               <ReadingPeriod />
-              <div className="flex flex-row">
+              <div className='flex flex-row'>
                 <Star star={star} setStar={setStar} />
-
                 <PublisherPage page={page} setPage={setPage} />
               </div>
             </BookInfo>
           </InfoBox>
           <BookIntro intro={intro} setIntro={setIntro} />
-          <Button
-            className="button transition delay-100 duration-300 ease-in-out"
-            type="button"
-            onClick={onClick}
-          >
+          <Button className='button transition delay-100 duration-300 ease-in-out' type='button' onClick={onClick}>
             등록
           </Button>
         </PostCon>
