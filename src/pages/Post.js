@@ -21,7 +21,7 @@ const Post = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    // dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+    dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
   }, []);
 
   const location = useLocation();
@@ -34,8 +34,8 @@ const Post = () => {
 
   // ANCHOR 이니셜 스테이트
   // const [title, setTitle] = useState("");
-  const [readStart, setReadStart] = useState("2000-01-01");
-  const [readEnd, setReadEnd] = useState("2999-12-31");
+  const [readStart, setReadStart] = useState("2000 - 01 - 01");
+  const [readEnd, setReadEnd] = useState("2999 - 12 - 31");
   const [star, setStar] = useState();
   const [intro, setIntro] = useInput();
   const [page, setPage] = useState(0);
@@ -43,9 +43,9 @@ const Post = () => {
 
   const onClick = () => {
     const post = { title, readStart, readEnd, star, page };
-    // console.log("🚀 ~ onClick ~ post", post);
+    console.log("🚀 ~ onClick ~ post", post);
     dispatch(__addReview({ title, readStart, readEnd, star, page }));
-    navigate("/main");
+    // navigate('/main');
   };
 
   // const inputTitle = (e) => {
@@ -61,13 +61,9 @@ const Post = () => {
 
             <BookInfo>
               <PostTitle>{title}</PostTitle>
-              <ReadingPeriod
-                setReadStart={setReadStart}
-                setReadEnd={setReadEnd}
-              />
+              <ReadingPeriod />
               <div className="flex flex-row">
                 <Star star={star} setStar={setStar} />
-
                 <PublisherPage page={page} setPage={setPage} />
               </div>
             </BookInfo>

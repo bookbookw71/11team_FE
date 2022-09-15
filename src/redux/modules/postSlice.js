@@ -43,7 +43,7 @@ export const __getReview = createAsyncThunk(
       return thunkAPI.rejectWithValue(error);
     }
   }
-);
+});
 
 export const __addReview = createAsyncThunk(
   "post/addReview",
@@ -84,6 +84,22 @@ export const postSlice = createSlice({
     [__addReview.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [__editReview.fulfilled]:(state, action) => {
+      const newState = state.posts.map((post)=> {
+        if(post.id === action.payload.data.id) {
+          post= {
+            ...post,
+            title: action.payload.data.title,
+            content: action.payload.data.content,
+            star : action.payload.data.star,
+            page: action.payload.data.page
+          }
+        }
+      })
+    },
+    [__editReview.rejected]:(state, action) => {
+      state.posts = action.payload;
     },
   },
 });
