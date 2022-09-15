@@ -34,8 +34,8 @@ const Post = () => {
 
   // ANCHOR 이니셜 스테이트
   // const [title, setTitle] = useState("");
-  const [readStart, setReadStart] = useState("2000 - 01 - 01");
-  const [readEnd, setReadEnd] = useState("2999 - 12 - 31");
+  const [readStart, setReadStart] = useInput("2000 - 01 - 01");
+  const [readEnd, setReadEnd] = useInput("2999 - 12 - 31");
   const [star, setStar] = useState();
   const [intro, setIntro] = useInput();
   const [page, setPage] = useState(0);

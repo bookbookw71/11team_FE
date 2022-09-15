@@ -10,10 +10,6 @@ import { __getReview } from '../../redux/modules/postSlice';
 const ReadingPeriod = () => {
   const dispatch = useDispatch;
 
-  useEffect(() => {
-    dispatch(__getReview);
-  },[]);
-
   const post = useSelector(state => state.posts);
   console.log('🚀 ~ ReadingPeriod ~ post', post);
 
