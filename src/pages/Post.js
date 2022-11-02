@@ -20,7 +20,7 @@ const Post = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    // dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+    dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
   }, []);
 
   const location = useLocation();

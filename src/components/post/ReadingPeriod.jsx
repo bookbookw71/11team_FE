@@ -1,11 +1,28 @@
 import tw from 'tailwind-styled-components';
 import DatePick from './DatePick';
+import TestDate from './TestDate';
+import TestDate2 from './TestDate2';
+import { useContext, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getReview } from '../../redux/modules/postSlice';
 
-const ReadingPeriod = ({ readStart, readEnd }) => {
+const ReadingPeriod = () => {
+  const dispatch = useDispatch;
+
+  useEffect(() => {
+    dispatch(__getReview);
+  },[]);
+
+  const post = useSelector(state => state.posts);
+  console.log('🚀 ~ ReadingPeriod ~ post', post);
+
   return (
     <BookReadingBox>
       <DateTitle>독서 기간</DateTitle>
       <DatePick />
+      {/* <TestDate /> */}
+      {/* <TestDate2 /> */}
     </BookReadingBox>
   );
 };
